@@ -27,6 +27,9 @@ public:
 		size = other.size;
 		count = other.count;
 		data = (int*)calloc(size, sizeof(int));
+		if (data == nullptr) {
+			throw std::bad_alloc();
+		}
 		for (int i = 0; i < size; i++) {
 			data[i] = other.data[i];
 
@@ -42,6 +45,9 @@ public:
 		count = sm_arr.count;
 		//data = new int[size];
 		data = (int*)calloc(size, sizeof(int));
+		if (data == nullptr) {
+			throw std::bad_alloc();
+		}
 		for (int i = 0; i < size; i++) {
 			data[i] = sm_arr.data[i];
 
