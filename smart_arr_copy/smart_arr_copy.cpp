@@ -9,12 +9,11 @@ private:
 	int count;
 public:
 	smart_array(int init_size) {
-		if (init_size == 0) {
+		if (init_size <= 0) {
 			throw std::invalid_argument("Quantity of elements must be greater than zero.");
 		}
 		size = init_size;
-		//data = new int[size];
-		data = (int*)calloc(size, sizeof(int));
+		data = new int[size];
 		if (data == nullptr) {
 			throw std::bad_alloc();
 		}
@@ -24,14 +23,18 @@ public:
 
 
 	smart_array& operator=(const smart_array& other) {
+
+		if (this == &other) {
+			return *this;
+		}
 		size = other.size;
 		count = other.count;
-		data = (int*)calloc(size, sizeof(int));
+		data = new int[size];
 		if (data == nullptr) {
 			throw std::bad_alloc();
 		}
 		for (int i = 0; i < size; i++) {
-			data[i] = other.data[i];
+			this->data[i] = other.data[i];
 
 		}
 		return *this;
@@ -39,12 +42,9 @@ public:
 
 	smart_array(const smart_array& sm_arr)
 	{
-
-		//data = sm_arr.data;
 		size = sm_arr.size;
 		count = sm_arr.count;
-		//data = new int[size];
-		data = (int*)calloc(size, sizeof(int));
+		data = new int[size];
 		if (data == nullptr) {
 			throw std::bad_alloc();
 		}
@@ -56,8 +56,7 @@ public:
 	}
 
 	~smart_array() {
-		//delete [] data;
-		free(data);
+		delete[] data;
 		printf("Array deleted\n");
 
 	}
@@ -65,13 +64,15 @@ public:
 	void add_element(int element) {
 		if (count >= size) {
 			size++;
-			int* ptr = (int*)realloc(data, size * sizeof(int));
-			if (ptr != nullptr) {
-				data = ptr;
-			}
-			else {
+			int *data_new = new int[size];
+			if (data_new == nullptr) {
 				throw std::bad_alloc();
 			}
+			for (int i = 0; i < size - 1; ++i) {
+				data_new[i] = this->data[i];
+			}
+			delete[] this->data;
+			data = data_new;
 		}
 		data[count] = element;
 		count++;
@@ -102,10 +103,24 @@ int main() {
 		arr.add_element(7);
 		arr.add_element(92);
 
+		std::cout << arr.get_element(0) << std::endl;
+		std::cout << arr.get_element(1) << std::endl;
+		std::cout << arr.get_element(2) << std::endl;
+		std::cout << arr.get_element(3) << std::endl;
+		std::cout << arr.get_element(4) << std::endl;
+		std::cout << arr.get_element(5) << std::endl;
+		std::cout << arr.get_element(6) << std::endl;
+		std::cout << arr.get_element(7) << std::endl;
+		std::cout << "\n";
+
+
+
+
+
 		smart_array new_array(2);
 		new_array.add_element(44);
 		new_array.add_element(34);
-
+		new_array.add_element(108);
 
 
 		arr = new_array;
