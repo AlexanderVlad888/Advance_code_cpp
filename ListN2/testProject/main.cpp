@@ -1,6 +1,4 @@
-//подключаем макросы catch2
 #include <catch2/catch_test_macros.hpp>
-
 #include <cstdint>
 #include <iostream>
 
@@ -97,7 +95,7 @@ private:
     unsigned long m_size;
 };
 
-//юнит-тест
+
 TEST_CASE("PushBack") {
    
     List L;
