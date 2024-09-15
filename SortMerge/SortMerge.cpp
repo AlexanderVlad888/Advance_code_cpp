@@ -30,7 +30,10 @@ int main() {
 	std::cout << "Отсортированный массив: ";
 	print(arr2, 18);
 
-	
+	delete[] arr;
+	delete[] arr1;
+	delete[] arr2;
+
 
 	return 0;
 }
