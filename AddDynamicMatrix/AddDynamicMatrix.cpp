@@ -2,7 +2,7 @@
 
 void print_dynamic_array(int* arr, int logical_size, int actual_size);
 void input(int* logical_size, int* actual_size);
-void addElement(int* arr, int* logical_size, int* actual_size);
+void addElement(int*& arr, int* logical_size, int* actual_size);
 void fillMatrix(int* arr, int logical_size, int actual_size);
 
 int main() {
@@ -27,8 +27,6 @@ int main() {
     }
     
 
-   
-
 }
 
 void input(int* logical_size, int* actual_size) {
@@ -40,7 +38,7 @@ void input(int* logical_size, int* actual_size) {
     
 }
 
-void addElement(int* arr, int* logical_size, int* actual_size) {
+void addElement(int*& arr, int* logical_size, int* actual_size) {
     
    
     while (true) {
@@ -52,8 +50,7 @@ void addElement(int* arr, int* logical_size, int* actual_size) {
             
             break; 
         }
-
-    
+            
         if (*logical_size == *actual_size) {
             (*actual_size) *= 2;
             int* arr2 = new int[(*actual_size)];
@@ -61,16 +58,17 @@ void addElement(int* arr, int* logical_size, int* actual_size) {
             for (int i = 0; i < *logical_size; ++i) {
                 arr2[i] = arr[i];
             }
-            //delete[] arr;
+
+            delete[] arr;
             arr = arr2;
+             
         }
         arr[(*logical_size)] = elem;
         (*logical_size)++;
+                    
         std::cout << "Динамический массив ";
         print_dynamic_array(arr, *logical_size, *actual_size);
         
-    
-
     }
     std::cout << "Спасибо! Ваш массив: ";
     print_dynamic_array(arr, *logical_size, *actual_size);

@@ -2,7 +2,7 @@
 
 void print_dynamic_array(int* arr, int logical_size, int actual_size);
 void input(int* logical_size, int* actual_size);
-void remove_dynamic_array_head(int* arr, int* logical_size, int* actual_size);
+void remove_dynamic_array_head(int*& arr, int* logical_size, int* actual_size);
 void fillMatrix(int* arr, int logical_size, int actual_size);
 
 int main() {
@@ -40,7 +40,7 @@ void input(int* logical_size, int* actual_size) {
 
 }
 
-void remove_dynamic_array_head(int* arr, int* logical_size, int* actual_size) {
+void remove_dynamic_array_head(int*& arr, int* logical_size, int* actual_size) {
 
     bool end = false;
     while (!end) {
@@ -75,6 +75,7 @@ void remove_dynamic_array_head(int* arr, int* logical_size, int* actual_size) {
                 for (int i = 0; i < *logical_size - 1; ++i) {
                     arr2[i] = arr[i + 1];
                 }
+                delete[] arr;
                 arr = arr2;
                 (*logical_size)--;
                 std::cout << "Динамический массив: ";
